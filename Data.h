@@ -16,6 +16,7 @@ public:
     friend ostream& operator<<(ostream& out, const Data& D); //Overloaded Output Operator
     bool operator> (const Data& D) const; //Overloaded Comparison operators
     bool operator< (const Data& D) const;
+    bool operator<= (const Data& D) const;
 private:
     int entryNumber; //The rank as given in the original .csv file
                      //(the most popular girl's name in 1880 has an entryNumber of 1 and
