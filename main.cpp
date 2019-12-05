@@ -192,14 +192,13 @@ int main() {
         return 1;
     }
 
-
     while (5433 + (10000 * iter) <= 1825433) {
-        vector<Data> dataV(5433 + (10000 * iter)),
+        vector<Data> dataV(5433 + (20000 * iter)),
                 dataV_B(dataV.size()),
                 dataV_S(dataV.size()),
                 dataV_Q(dataV.size()),
                 dataV_M(dataV.size());
-        vector<int> intV(5433 + (10000 * iter)),
+        vector<int> intV(5433 + (20000 * iter)),
                 intV_B(intV.size()),
                 intV_S(intV.size()),
                 intV_Q(intV.size()),
@@ -331,7 +330,6 @@ int main() {
         //Increment iterator
         iter++;
     }
-
 
     //Close files
     cout << "Closing Files.." << endl;

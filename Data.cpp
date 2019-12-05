@@ -22,7 +22,7 @@ Data::Data(ifstream& in) {
     getline(in, name, ',');
     getline(in, strYear, ','); year = stoi(strYear);
     getline(in, gender, ',');
-    getline(in, strNumOcc, ','); numberOccurrences = stoi(strNumOcc);
+    getline(in, strNumOcc, '\n'); numberOccurrences = stoi(strNumOcc);
 
 }
 
