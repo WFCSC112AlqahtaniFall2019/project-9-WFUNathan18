@@ -56,3 +56,10 @@ bool Data::operator<= (const Data& D) const {
 
     return false;
 }
+
+bool Data::operator>= (const Data& D) const {
+    if (numberOccurrences >= D.numberOccurrences)
+        return true;
+
+    return false;
+}

@@ -1,0 +1,2 @@
+While I was not able to sort through 100000 elements due do time constraints, I noticed that bubbleSort took, by far,
+the most amount of time to sort. The only time where it would be beneficial to use bubbleSort is with small amounts of data.

@@ -23,7 +23,7 @@ void bubbleSort(vector <T>& arr, int size) {
         swapped=false; 
         // Last i elements are already in place 
         for (j = 0; j < size-i-1; j++) 
-        if (arr[j] > arr[j+1]) { 
+        if (arr[j] < arr[j+1]) { 
             swap(arr[j], arr[j + 1]); 
             swapped=true; 
         } 
@@ -34,7 +34,7 @@ void bubbleSort(vector <T>& arr, int size) {
 }
 
 template <typename T> 
-void MinSort(vector <T>& arr, int size) { 
+void MaxSort(vector <T>& arr, int size) { 
     int min; 
     for (int i = 0; i < size - 1; ++i) { 
     // Find index of smallest remaining element 
@@ -52,11 +52,11 @@ template <typename T>
 const T& median3 (vector<T>& a, int left, int right) {
     int center = (left + right) / 2;
 
-    if (a[center] < a[left])
+    if (a[center] > a[left])
         swap(a[left], a[center]);
-    if (a[right] < a[left])
+    if (a[right] > a[left])
         swap(a[left],a[right]);
-    if (a[right] < a[center])
+    if (a[right] > a[center])
         swap(a[center], a[right]);
 
     swap(a[center], a[right - 1]);
@@ -72,7 +72,7 @@ int qsPartition(vector<T>& a, T pivot, int lowIndex, int highIndex) {
     int j = lowIndex;
 
     while (j < highIndex - 1) {
-        if (a[j] < pivot) {
+        if (a[j] > pivot) {
             i++;
             swap(a[i], a[j]);
         }
@@ -104,18 +104,18 @@ void merge(vector<T>& a, vector<T>& tmpArray, int leftPos, int rightPos, int rig
     int tmpPos = leftPos;
     int numElements = rightEnd - leftPos + 1;
 
-    while (leftPos <= leftEnd && rightPos <= rightEnd) {
-        if (a[leftPos] <= a[rightPos]) {
+    while (leftPos >= leftEnd && rightPos >= rightEnd) {
+        if (a[leftPos] >= a[rightPos]) {
             tmpArray[tmpPos++] = move(a[leftPos++]);
         } else {
             tmpArray[tmpPos++] = move(a[rightPos++]);
         }
     }
 
-    while (leftPos <= leftEnd)
+    while (leftPos >= leftEnd)
         tmpArray[tmpPos++] = move(a[leftPos++]);
 
-    while (rightPos <= rightEnd)
+    while (rightPos >= rightEnd)
         tmpArray[tmpPos++] = move(a[rightPos++]);
 
     for (int i = 0; i < numElements; ++i, --rightEnd)
@@ -159,6 +159,7 @@ int main() {
     quickBestFile.open("../quickTvNBest.csv");
     mergeBestFile.open("../mergeTvNBest.csv");
 
+    cout << "2";
     if (!bubbleFile.is_open()) {
         cout << "Error opening bubbleTvN.csv" << endl;
         return 1;
@@ -192,13 +193,13 @@ int main() {
         return 1;
     }
 
-    while (5433 + (10000 * iter) <= 1825433) {
-        vector<Data> dataV(5433 + (20000 * iter)),
+    while (/*5433 + (10000 * iter) <= 1825433*/ iter < 8) {
+        vector<Data> dataV(5433 + (1000 * iter)),
                 dataV_B(dataV.size()),
                 dataV_S(dataV.size()),
                 dataV_Q(dataV.size()),
                 dataV_M(dataV.size());
-        vector<int> intV(5433 + (20000 * iter)),
+        vector<int> intV(5433 + (1000 * iter)),
                 intV_B(intV.size()),
                 intV_S(intV.size()),
                 intV_Q(intV.size()),
@@ -207,9 +208,10 @@ int main() {
 
         //Open sorted output files
         bubbleSortedFile.open("../bubbleSorted.csv");
-        selectFile.open("../selectTvN.csv");
-        quickFile.open("../quickTvN.csv");
-        mergeFile.open("../mergeTvN.csv");
+        selectSortedFile.open("../selectSorted.csv");
+        quickSortedFile.open("../quickSorted.csv");
+        mergeSortedFile.open("../mergeSorted.csv");
+        cout << "1";
         //Fill Data Vector
         inFile.open("../NationalNames.csv");
         if (!inFile.is_open()) {
@@ -255,29 +257,29 @@ int main() {
 
         //Write to output files
         for (int i = 0; i < dataV_B.size(); i++) {
-            bubbleSortedFile << dataV_B.at(i) << endl;
+            bubbleSortedFile << dataV_B.at(i);
         }
         bubbleSortedFile.close();
         bubbleFile << intV_B.size() << "," << elapsedTime << endl;
         bubbleBestFile << intV_B.size() << "," << elapsedTimeBest << endl;
 
         //Select Sort
-        MinSort<Data> (dataV_S, dataV_S.size());
+        MaxSort<Data> (dataV_S, dataV_S.size());
         start = clock();
-        MinSort<int> (intV_S, intV_S.size());
+        MaxSort<int> (intV_S, intV_S.size());
         end = clock();
         elapsedTime = double(end - start) / CLOCKS_PER_SEC;
 
         //Select Sort with sorted vector
-        MinSort<Data> (dataV_S, dataV_S.size());
+        MaxSort<Data> (dataV_S, dataV_S.size());
         start = clock();
-        MinSort<int> (intV_S, intV_S.size());
+        MaxSort<int> (intV_S, intV_S.size());
         end = clock();
         elapsedTimeBest = double(end - start) / CLOCKS_PER_SEC;
 
         //Write to output files
         for (int i = 0; i < dataV_S.size(); i++) {
-            selectSortedFile << dataV_S.at(i) << endl;
+            selectSortedFile << dataV_S.at(i);
         }
         selectSortedFile.close();
         selectFile << intV_S.size() << "," << elapsedTime << endl;
@@ -299,7 +301,7 @@ int main() {
 
         //Write to output files
         for (int i = 0; i < dataV_Q.size(); i++) {
-            quickSortedFile << dataV_Q.at(i) << endl;
+            quickSortedFile << dataV_Q.at(i);
         }
         quickSortedFile.close();
         quickFile << intV_Q.size() << "," << elapsedTime << endl;
@@ -321,7 +323,7 @@ int main() {
 
         //Write to output files
         for (int i = 0; i < dataV_M.size(); i++) {
-            selectSortedFile << dataV_M.at(i) << endl;
+            selectSortedFile << dataV_M.at(i);
         }
         mergeSortedFile.close();
         mergeFile << intV_M.size() << "," << elapsedTime << endl;
