@@ -1,2 +1,4 @@
 While I was not able to sort through 100000 elements due do time constraints, I noticed that bubbleSort took, by far,
-the most amount of time to sort. The only time where it would be beneficial to use bubbleSort is with small amounts of data.
+the most amount of time to sort in the long run. However, when dealing with a small amount of data, selectionSort is
+actually slower. Additionally, if the data is already sorted, bubbleSort is much faster than selectionSort. However,
+these are definitely some of the few exceptions where bubbleSort is better.
